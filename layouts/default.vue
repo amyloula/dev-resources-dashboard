@@ -1,43 +1,13 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar
-      app
-      color="indigo"
-      dark
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
-    </v-app-bar>
-
-      <v-navigation-drawer
-      v-model="drawer"
-      app
-    >
-      <v-list dense>
-        <v-list-item @click="">
-          <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item @click="">
-          <v-list-item-action>
-            <v-icon>mdi-contact-mail</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Contact</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+    <AppToolbar></AppToolbar>
+    <AppDrawer ></AppDrawer>
     <nuxt />
     <v-footer
       color="indigo"
       app
     >
-      <span class="white--text">&copy; 2019</span>
+      <span class="white--text">&copy; Company 2019</span>
     </v-footer>
   </v-app>
 </template>
@@ -47,12 +17,28 @@
 </style>
 
 <script>
+  import AppDrawer from '@/components/AppDrawer'
+  import AppToolbar from '@/components/AppToolbar'
+
   export default {
-    props: {
-      source: String,
+    components: {
+      AppDrawer,
+      AppToolbar
     },
     data: () => ({
-      drawer: null,
+      expanded: true,
+      rightDrawer: false,
+      snackbar: {
+        show: false,
+        text: '',
+        color: '',
+      }
     }),
+    methods: {
+      openThemeSettings() {
+        this.$vuetify.goTo(0)
+        this.rightDrawer = (!this.rightDrawer)
+      }
+    }
   }
 </script>
